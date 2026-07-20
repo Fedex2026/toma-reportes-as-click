@@ -137,7 +137,7 @@ export default function ReportesPage() {
   }, [membresia]);
 
   const diasRestantesMembresia = useMemo(() => {
-    if (!membresia?.vigencia) return null;
+    if (!membresia?.finVigencia) return null;
 
     const fechaVigencia = new Date(membresia.finVigencia);
     if (isNaN(fechaVigencia.getTime())) return null;
@@ -280,7 +280,7 @@ export default function ReportesPage() {
         membresiaActiva: membresiaActivaReal,
         numeroMembresia: membresia?.numeroMembresia || "",
         plan: membresia?.plan || "",
-        vigencia: membresia?.vigencia || "",
+        vigencia: membresia?.finVigencia || "",
         estadoMembresia: membresia?.estado || "",
         tipoCliente: membresia?.tipoCliente || "particular",
         costoServicio,
@@ -350,7 +350,7 @@ export default function ReportesPage() {
         descripcion: form.descripcion,
         membresiaActiva: membresiaActivaReal,
         plan: membresia?.plan || "",
-        vigencia: membresia?.vigencia || "",
+        vigencia: membresia?.finVigencia || "",
         tipoCliente: membresia?.tipoCliente || "particular",
         costoServicio,
       };
