@@ -21,7 +21,8 @@ type MembresiaData = {
   color?: string;
   numeroMembresia?: string;
   plan?: string;
-  vigencia?: string;
+  inicioVigencia?: string;
+  finVigencia?: string;
   estado?: string;
   tipoCliente?: "particular" | "servicio_publico";
 };
@@ -127,9 +128,9 @@ export default function ReportesPage() {
   const membresiaActivaReal = useMemo(() => {
     if (!membresia) return false;
     if (membresia.estado !== "activa") return false;
-    if (!membresia.vigencia) return false;
+    if (!membresia.finVigencia) return false;
 
-    const vigencia = new Date(membresia.vigencia);
+    const vigencia = new Date(membresia.finVigencia);
     if (isNaN(vigencia.getTime())) return false;
 
     return vigencia >= new Date();
@@ -138,7 +139,7 @@ export default function ReportesPage() {
   const diasRestantesMembresia = useMemo(() => {
     if (!membresia?.vigencia) return null;
 
-    const fechaVigencia = new Date(membresia.vigencia);
+    const fechaVigencia = new Date(membresia.finVigencia);
     if (isNaN(fechaVigencia.getTime())) return null;
 
     const hoy = new Date();
@@ -549,7 +550,7 @@ Vigencia: ${data.vigencia || "N/A"}`;
               <p className="font-bold">Cliente con membresía</p>
               <p>Número: {membresia.numeroMembresia || "N/A"}</p>
               <p>Plan: {membresia.plan || "N/A"}</p>
-              <p>Vigencia: {membresia.vigencia || "N/A"}</p>
+              <p>Vigencia: {membresia.finVigencia || "N/A"}</p>
               <p>Estado: {membresia.estado || "N/A"}</p>
               <p>Tipo cliente: {membresia.tipoCliente || "N/A"}</p>
               <p className="font-semibold mt-1">{textoVigencia}</p>
